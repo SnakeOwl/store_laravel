@@ -1,0 +1,103 @@
+@font-face {
+  font-family: "Comfortaa";
+  src: url("/fonts/Comfortaa-VariableFont_wght.ttf");
+}
+/* green */
+/* red */
+/*dark blue*/
+* {
+  font-family: "Comfortaa";
+}
+*:selection {
+  background-color: #00CC00;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  color: #00CC00;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 320px;
+  padding: 15px;
+  margin: auto;
+}
+
+.catalog .cart-img-wrapper {
+  width: auto;
+  height: 300px;
+}
+.catalog .cart-img-wrapper img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.catalog .card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 50px;
+}
+.catalog .card-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 70px;
+}
+
+ul.list-style-inside {
+  list-style: inside;
+}
+
+.color-primary,
+.hover-color-primary:hover {
+  color: #00CC00;
+}
+
+.bg-color-primary {
+  background-color: #00CC00;
+}
+
+.color-second,
+.hover-color-second:hover {
+  color: #FF0000;
+}
+
+.bg-color-second {
+  background-color: #FF0000;
+}
+
+.color-link,
+.hover-color-link:hover {
+  color: #1240AB;
+}
+
+.bg-color-link {
+  background-color: #1240AB;
+}
+
+.basket-btn-remove-item {
+  border-radius: 4px;
+  background: #1240AB;
+  border: none;
+  color: white;
+  width: 28px;
+}
+
+.basket-btn-add-item {
+  border-radius: 4px;
+  background: #FF0000;
+  border: none;
+  color: white;
+  width: 28px;
+}
