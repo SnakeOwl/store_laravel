@@ -1,17 +1,17 @@
 $(document).ready(function(){
 
-    function payment_method_changed()
+    function delivery_method_changed()
     {
-        var method = $('#payment-type').val();
+        var method = $('#delivery_method').val();
         if (method == null)
-            console.log("Что-то пошло не так при изменении метода оплаты");
+            console.log("Что-то пошло не так при изменении способа доставки");
 
         courier_inputs = $('#payment-type-1');
         post_inputs = $('#payment-type-2');
         self_inputs = $('#payment-type-3');
 
         switch (method) {
-            case 'courier':
+            case 'Доставка курьером':
                 if (courier_inputs.hasClass("d-none"))
                     courier_inputs.removeClass("d-none");
 
@@ -22,7 +22,7 @@ $(document).ready(function(){
                     self_inputs.addClass("d-none");
                 break;
 
-            case 'post':
+            case 'Доставка почтой':
                 if (courier_inputs.hasClass("d-none"))
                     courier_inputs.removeClass("d-none");
 
@@ -34,7 +34,7 @@ $(document).ready(function(){
 
                 break;
 
-            case 'self':
+            case 'Доставка до точки самовывоза':
                 if (!courier_inputs.hasClass("d-none"))
                     courier_inputs.addClass("d-none");
 
@@ -49,8 +49,10 @@ $(document).ready(function(){
     }
 
 
-    $('#payment-type').change(function()
+    $('#delivery_method').change(function()
     {
-        payment_method_changed();
+        delivery_method_changed();
     })
+
+    delivery_method_changed(); // если пользователь перезагрузил страницу
 });

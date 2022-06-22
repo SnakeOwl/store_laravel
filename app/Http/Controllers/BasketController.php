@@ -16,6 +16,7 @@ class BasketController extends Controller
         $item = Item::findOrFail($id);
 
         $order_id = session('order_id');
+
         if ( is_null($order_id) )
         {
             $order = Order::create();

@@ -19,8 +19,8 @@ class CreateOrdersTable extends Migration
             $table->tinyInteger('basket_status')->default(0); // 0 - заказ в корзине, 1 - заказ в обработке,
             $table->boolean('payment_status')->default(0);  //статус оплаты
             $table->string('payment_method');   //метод оплаты
-            $table->string('delivery_method');  //метод доставки
-            $table->string('address');
+            $table->string('delivery_method');  //способ доставки
+            $table->string('address')->nullable();
             $table->string('post_index')->nullable();    //почтовый индекс
             $table->unsignedTinyInteger('discont')->nullable()->default(0);
             $table->string('phone');
@@ -31,6 +31,8 @@ class CreateOrdersTable extends Migration
             $table->foreignId('user_id')->nullable();
             $table->foreignId('courier_id')->nullable();
             $table->foreignId('promocode_id')->nullable();
+            $table->foreignId('storage_id')->nullable();
+
         });
     }
 

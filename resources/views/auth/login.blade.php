@@ -12,18 +12,12 @@
         <h1 class="h3 mb-3 fw-normal">Пожалуйста войдите</h1>
 
         <!-- email -->
-        @error('email')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
         <div class="form-floating">
             <input type="email" :value="old('email')" name="email" class="form-control" id="email" placeholder="name@google.com" required autofocus>
             <label for="email">Email:</label>
         </div>
 
         <!-- password -->
-        @error('password')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
         <div class="form-floating mb-3">
             <input type="password" name="password" class="form-control" id="password" placeholder="Пароль" required>
             <label for="password">Пароль</label>
@@ -36,7 +30,8 @@
             </label>
         </div>
 
-        <input class="btn btn-success" type="submit" value="Войти">
+        <input class="bttn blue w-100 mb-3" type="submit" value="Войти">
+        <a href="">Напомнить пароль</a>
 
     </form>
 </div>

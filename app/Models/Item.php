@@ -3,26 +3,42 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
+    use SoftDeletes;
     use HasFactory;
 
     public $timestamps = false;
-
-    protected $table = "items";
 
     protected $fillable = [
         'name',
         'alias',
         'price',
-        'describ',
+        'description',
         'short_image',
         'amount',
-        'discont',
-        'directory_id'
+        'discount',
+        'category_id',
+        'new',
+        'hit'
     ];
+
+    public function scopeHit($query)
+    {
+        return $query->where('hit', 1);
+    }
+    public function scopeNew($query)
+    {
+        return $query->where('new', 1);
+    }
+
+    public function is_available()
+    {
+        return ($this->amount > 0) && (! $this->trashed()) ;
+    }
 
     public function get_price_for_amount()
     {
@@ -30,12 +46,13 @@ class Item extends Model
         {
             return $this->price * $this->pivot->amount;
         }
+
         return $this->price;
     }
 
     public function get_description()
     {
-        return stripslashes($this->describ);
+        return nl2br($this->description);
     }
 
 
@@ -59,9 +76,9 @@ class Item extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function directory()
+    public function category()
     {
-        return $this->hasOne(Directory::class, 'id', 'directory_id');
+        return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
     /**
@@ -70,6 +87,7 @@ class Item extends Model
      * @var array
      */
     protected $attributes = [
-        'discont' => '0'
+        'hit' => '0',
+        'new' => '0'
     ];
 }

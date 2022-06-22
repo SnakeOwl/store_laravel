@@ -11,5 +11,17 @@ class Contact extends Model
 
     public $timestamps = false;
 
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
+
+    protected $fillable = [
+        'name',
+        'email',
+        'message',
+        'active'
+    ];
+
     protected $table = "contacts";
 }

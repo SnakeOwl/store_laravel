@@ -3,89 +3,77 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Courier;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\Admin\CourierRequest;
+use App\Http\Requests\CreateCourierRequest;
+use App\Http\Requests\UpdateCourierRequest;
 
 
 class CourierController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Курьеры - это пользователи с правами
     public function index()
     {
-        return view('admin.couriers.index', ['couriers' => Courier::All()]);
+        $couriers = User::couriers()->get();
+        return view('admin.couriers.index', compact('couriers') );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('admin.couriers.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CourierRequest $request)
+    public function store(CreateCourierRequest $request)
     {
-        Courier::create($request->all());
+        $params = $request->all();
+        $params['password'] = bcrypt($params['password']);
+        $params['rights'] = User::RIGHTS['courier'];
+        User::create($params);
+
+        session()->flash('info', 'Курьер добавлен.');
+
         return redirect()->route('couriers.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Courier  $courier
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Courier $courier)
+
+    public function show(User $courier)
     {
-        return redirect()->route('couriers.index');
+        return view('admin.couriers.show', compact('courier'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Courier  $courier
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Courier $courier)
+
+    public function edit(User $courier)
     {
         return view('admin.couriers.form', compact('courier'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Courier  $courier
-     * @return \Illuminate\Http\Response
-     */
-    public function update(CourierRequest $request, Courier $courier)
+
+    public function update(UpdateCourierRequest $request, User $courier)
     {
-        $courier->update($request->all());
+        $params = $request->all();
+        if ($params['password'] != null)
+        {
+            $params['password'] = bcrypt($params['password']);
+        }
+        else
+        {
+            unset($params['password']);
+        }
+
+        $courier->update($params);
+
+        session()->flash('info', 'Курьер изменен.');
+
         return redirect()->route('couriers.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Courier  $courier
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Courier $courier)
+
+    public function destroy(User $courier)
     {
         $courier->delete();
+
+        session()->flash('info', 'Курьер удален.');
+
         return redirect()->route('couriers.index');
     }
 }

@@ -1,28 +1,96 @@
+// подключение и изменение шрифтов
 @font-face {
     font-family: 'Comfortaa';
     src: url('/fonts/Comfortaa-VariableFont_wght.ttf');
 }
 
-$primary_color: #00CC00; /* green */
-$second_color: #FF0000; /* red */
-$third_color: #1240AB; /*dark blue*/
-
 *{
     font-family: 'Comfortaa';
-
-    &:selection{
-        background-color: $primary_color;
-    }
 }
 
+
+
+$body_color: #fff;
+$red: #EE0000;
+$blue: #011AFA; //вторичный цвет (blue)
+$green: #45AD09; //вторичный цвет (зеленый) 6BFA19
+
+
+
+%body_box{
+    background-color: $body_color;
+    color: black;
+}
+%red_box{
+    background-color: $red;
+    color: white;
+}
+%blue_box{
+    background-color: $blue;
+    color: white;
+}
+%green_box{
+    background-color: $green;
+    color: white;
+}
+
+
+// ===== зарезервированные настройки
 .text-justify{
-    text-align: justify;
+    text-align: justify !important;
+}
+
+// === Кнопки
+.bttn{
+    border-radius: 7px;
+    padding: 10px 20px;
+    border: none;
+    display: inline-block;
+
+    &.red{
+        @extend %red_box;
+    }
+
+    &.blue{
+        @extend %blue_box;
+    }
+
+    &.green{
+        @extend %green_box;
+    }
+
+    &:hover{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+        color:white;
+    }
+
+    &[disabled]{
+        background: white;
+        color: black;
+        border: 1px solid black;
+    }
+
+}
+
+
+// основные настройки
+body{
+    @extend %body_box;
+}
+.red-box{
+    @extend %red_box;
+}
+.blue-box{
+    @extend %blue_box;
+}
+.green-box{
+    @extend %green_box;
 }
 
 a{
     text-decoration: none;
     &:hover{
-        color: $primary_color;
+        color: $green;
     }
 }
 
@@ -33,81 +101,58 @@ a{
     margin: auto;
 }
 
-.catalog{
-    .cart-img-wrapper {
-        width: auto;
-        height: 300px;
-
-        img{
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-        }
-    }
-
-    .card-title{
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        min-height: 50px;
-    }
-
-    .card-text{
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        min-height: 70px;
-    }
-
-}
 
 ul.list-style-inside{
     list-style: inside;
 }
 
+.catalog{
+    .card{
+        .img-wrapper {
+            width: auto;
+            height: 300px;
 
-.color-primary,
-.hover-color-primary:hover{
-    color: $primary_color;
+            img{
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .title{
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 50px;
+        }
+
+        .text{
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 70px;
+        }
+    }
 }
 
-.bg-color-primary{
-    background-color: $primary_color;
+.basket{
+    .btn-remove{
+        background-color: inherit;
+        color: $green;
+        border: none;
+    }
+
+    .btn-add{
+        background-color: inherit;
+        border: none;
+        color: $red;
+    }
 }
 
-
-.color-second,
-.hover-color-second:hover{
-    color: $second_color;
-}
-
-.bg-color-second{
-    background-color: $second_color;
-}
-
-
-.color-link,
-.hover-color-link:hover{
-    color: $third_color;
-}
-
-.bg-color-link{
-    background-color: $third_color;
-}
-
-.basket-btn-remove-item{
-    border-radius: 4px;
-    background: $third_color;
-    border: none;
-    color: white;
-    width: 28px;
-}
-.basket-btn-add-item{
-    border-radius: 4px;
-    background: $second_color;
-    border: none;
-    color: white;
-    width: 28px;
+footer{
+    a{
+        color:white;
+    }
 }

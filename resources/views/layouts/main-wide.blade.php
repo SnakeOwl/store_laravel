@@ -16,10 +16,15 @@
 </head>
 <body>
     @include('layouts.include.header')
+    @include('layouts.include.messages')
+    @include('layouts.include.errors')
+
 
 
     <div class="container-fluid p-0">
-        @yield('content')
+
+            @yield('content')
+
     </div>
 
     @include('layouts.include.footer')

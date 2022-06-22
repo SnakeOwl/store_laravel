@@ -8,9 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+    public $fillable = [
+        'payment_status',
+        'status'
+    ];
 
     public $timestamps = false;
     protected $table = "orders";
+
+    public function scopeActive($query)
+    {
+        return $query->where('basket_status', 1);
+    }
 
     public function items()
     {
@@ -34,7 +43,8 @@ class Order extends Model
                                 $address,
                                 $post_index,
                                 $phone,
-                                $name)
+                                $name,
+                                $storage_id)
     {
         date_default_timezone_set("Europe/Moscow");
 
@@ -47,6 +57,7 @@ class Order extends Model
         $this->price            = $this->get_full_price();
         $this->basket_status    = 1;
         $this->date_created     = date('Y-m-d H:i:s'); 	//Europe/Minsk
+        $this->storage_id       = $storage_id;
         $this->save();
 
         session()->forget('order_id');

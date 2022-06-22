@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateMessageRequest;
+use App\Http\Requests\UpdateMessageRequest;
 use App\Models\Contact;
 
 class ContactController extends Controller
 {
     public function index()
     {
-        return view('admin.contacts.index', ['contacts' => Contact::all()]);
+        $contacts = Contact::active()->get();
+        return view('admin.contacts.index', compact('contacts') );
     }
 
     public function create()
@@ -17,32 +20,27 @@ class ContactController extends Controller
         return view('support-form');
     }
 
-    public function store(Request $request)
+    public function store(CreateMessageRequest $request)
     {
-        $con = new Contact();
-        $con->name = $request->input('name');
-        $con->email = $request->input('email');
-        $con->message = $request->input('message');
-        $con->save();
+        Contact::create($request->all());
 
-        return view('support-form', ['message' => 'Письмо было отправлено. Наши специалисты скоро свяжутся с вами.']);
+        session()->flash('info', 'Спасибо! Письмо было отправлено.');
+
+        return redirect()->route('support.create');
     }
 
-    public function show($id)
+
+    public function edit(Contact $contact)
     {
-        return view('admin.contacts.show', ['record' => Contact::find($id)]);
+        return view('admin.contacts.edit', compact('contact') );
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateMessageRequest $request, Contact $contact)
     {
-        $con = Contact::findOrFail($id);
-        $con->active = $request->boolean('active');
+        $contact->update($request->all());
 
-        $con->save();
+        session()->flash('info', 'Письмо было прочитано.');
 
-        return view('admin.contacts.index', [
-            'contacts' => Contact::all(),
-            'message' => 'Изменено'
-        ]);
+        return redirect()->route('contacts.index');
     }
 }

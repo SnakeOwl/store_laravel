@@ -37,6 +37,12 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('admin', function (){
             return Auth::check() && Auth::user()->is_admin();
         });
+        Blade::if('editor', function (){
+            return Auth::check() && Auth::user()->is_editor();
+        });
+        Blade::if('courier', function (){
+            return Auth::check() && Auth::user()->is_courier();
+        });
 
         Blade::component('slider-v1', Slider_v1::class);
         Blade::component('mini-catalog-v1', Mini_catalog_v1::class);

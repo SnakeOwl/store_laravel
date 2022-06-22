@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\CreateStorageRequest;
+use App\Http\Requests\UpdateStorageRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Storage;
 use Illuminate\Http\Request;
@@ -34,21 +36,12 @@ class StorageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateStorageRequest $request)
     {
         Storage::create($request->all());
 
-        return redirect()->route('storages.create')->with('message', 'Запись добавлена');
-    }
+        session()->flash('info', 'Склад (магазин) добавлен.');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Storage  $storage
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Storage $storage)
-    {
         return redirect()->route('storages.index');
     }
 
@@ -60,7 +53,7 @@ class StorageController extends Controller
      */
     public function edit(Storage $storage)
     {
-        return view('admin.storages.form', ['storage' => $storage]);
+        return view('admin.storages.form', compact('storage'));
     }
 
     /**
@@ -70,9 +63,12 @@ class StorageController extends Controller
      * @param  \App\Models\Storage  $storage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Storage $storage)
+    public function update(UpdateStorageRequest $request, Storage $storage)
     {
         $storage->update($request->all());
+
+        session()->flash('info', 'Склад (магазин) изменен.');
+
         return redirect()->route('storages.index');
     }
 
@@ -85,6 +81,9 @@ class StorageController extends Controller
     public function destroy(Storage $storage)
     {
         $storage->delete();
+
+        session()->flash('info', 'Склад (магазин) удален.');
+
         return redirect()->route('storages.index');
     }
 }

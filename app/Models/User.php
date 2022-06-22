@@ -12,6 +12,22 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    const RIGHTS = [
+        'admin' => 10,
+        'editor' => 5,
+        'courier' => 2
+    ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function scopeCouriers($query)
+    {
+        return $query->where('rights', User::RIGHTS['courier']);
+    }
+
     public function is_admin()
     {
         return $this->rights === 10;
@@ -19,12 +35,12 @@ class User extends Authenticatable
 
     public function is_editor()
     {
-        return $this->rights > 5;
+        return ( $this->is_admin() )? true : $this->rights === 5;
     }
 
     public function is_courier()
     {
-        return $this->rights > 2;
+        return ( $this->is_admin() )? true : $this->rights === 2;
     }
 
     /**
@@ -35,7 +51,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
+        'rights',
+        'order_id',
     ];
 
     /**
