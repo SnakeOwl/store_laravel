@@ -3,15 +3,15 @@
 @section('title')Каталог@endsection
 
 @section('content')
-<section class="d-flex catalog">
-    <div class="col-2">
+<section class="catalog d-flex">
+    <div class="col-12 col-xl-2 d-none d-xl-block">
         @include('catalog.include.filter')
     </div>
 
-    <div class="row w-100 justify-content-around">
+    <div class="row w-100 justify-content-around ">
     <!-- Сами товары -->
     @foreach($items as $item)
-        <div class="col-3 me-4 mb-2 p-1 card">
+        <div class="col-12 col-md-6 col-lg-4 me-xl-1 col-xxl-3 mb-3 p-1 card">
             <div class="img-wrapper">
                 <a href={{ route('catalog-item',[
                 'category_alias' => $item->category->alias,

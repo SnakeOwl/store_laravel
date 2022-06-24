@@ -8,18 +8,18 @@
     <form action="{{ route('basket-confirm') }}" method="post">
         @csrf
 
-        <div class="input-group mb-3">
-            <label for="name" class="input-group-text">Имя:</label>
+        <div class="form-floating mb-3">
             <input class="form-control" type="text" id="name" name="name" maxlength="255" placeholder="">
+            <label for="name">ФИО</label>
         </div>
 
-        <div class="input-group mb-3">
-            <label class="input-group-text" for="delivery_method">Способ Доставки</label>
+        <div class="form-floating mb-3">
             <select class="form-select" name="delivery_method" id="delivery_method">
                 <option selected value="Доставка курьером">Доставка курьером</option>
                 <option value="Доставка почтой">Доставка почтой</option>
                 <option value="Доставка до точки самовывоза">Доставка до точки самовывоза</option>
             </select>
+            <label for="delivery_method">Способ Доставки</label>
         </div>
 
         <div id="payment-type-1">
@@ -27,15 +27,15 @@
 
             <div id="payment-type-2" class="d-none">
                 <!-- данные для почты -->
-                <div class="input-group mb-3">
-                    <label for="post_index" class="input-group-text">Почтовый индекс:</label>
+                <div class="form-floating mb-3">
                     <input class="form-control" type="text" id="post_index" name="post_index" maxlength="10" placeholder="123456">
+                    <label for="post_index">Почтовый индекс:</label>
                 </div>
             </div>
 
-            <div class="input-group mb-3">
-                <label for="address" class="input-group-text">Адрес:</label>
+            <div class="form-floating mb-3">
                 <input class="form-control" type="text" id="address" name="address" maxlength="255" placeholder="г.Москва, ул.Советская 21">
+                <label for="address">Адрес:</label>
             </div>
         </div>
 
@@ -72,25 +72,23 @@
 
         </div>
 
-        <div class="input-group mb-3">
-            <label for="phone" class="input-group-text">Контактный телефон:</label>
-            <span class="input-group-text">+375</span>
+        <div class="form-floating mb-3">
             <input class="form-control" type="tel" id="phone" name="phone" maxlength="20" placeholder="29 123-4567" required>
-            <span for="name" class="input-group-text">*</span>
+            <label for="phone">Телефон:</label>
         </div>
 
-        <div class="input-group mb-3">
-            <label class="input-group-text" for="payment_method">Способ оплаты</label>
+        <div class="form-floating mb-3">
             <select class="form-select" name="payment_method" id="payment_method">
                 <option selected value="Оплата картой">Оплата картой</option>
                 <option value="Оплата при получении">Оплата при получении</option>
                 <option value="Оплата через ЕРИП">Оплата через ЕРИП</option>
             </select>
+            <label for="payment_method">Способ оплаты</label>
         </div>
 
-        <div class="input-group mb-3">
-            <span class="input-group-text">Сумма оплаты:</span>
-            <span class="input-group-text">{{ $order->get_full_price() }}</span>
+        <div class="form-floating mb-3">
+            <input class="form-control" type="text" id="cost" value="{{ $order->get_full_price() }}" disabled>
+            <label for="cost">Суммка оплаты</label>
         </div>
 
 

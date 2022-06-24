@@ -17,7 +17,7 @@
         </form>
     </section>
 
-    <form action="{{ route('catalog') }}">
+    <form class="d-xl-block d-none" action="{{ route('catalog') }}">
         <!-- фильтр по категориям -->
         <section class="mb-3">
             <h6>Фильтр:</h6>

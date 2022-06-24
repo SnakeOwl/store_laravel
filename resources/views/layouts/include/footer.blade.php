@@ -1,8 +1,8 @@
 <footer class="container-fluid bg-dark text-white py-5 mt-5 footer">
     <div class="container">
 
-        <div class="row">
-            <div class="col-3">
+        <div class="row text-center text-md-start">
+            <div class="col-12 col-md-6 col-lg-3 my-2 my-lg-0">
                 <a class=" px-0" href="tel:375291234567" itemprop="telephone" content="375291234567"> 375 29 123 4567</a>
                 <div class="text-muted">Бесплатно по РБ</div>
 
@@ -13,7 +13,7 @@
                 </div>
             </div>
 
-            <div class="col-3">
+            <div class="col-12 col-md-6 col-lg-3 my-2 my-lg-0">
                 <h4>Магазин</h4>
                 <div class="list-group">
                     <a class="mb-2 px-0" href="{{ route('about') }}#oformlenie-zakaza" >Оформление заказа</a>
@@ -24,7 +24,7 @@
             </div>
 
 
-            <div class="col-3">
+            <div class="col-12 col-md-6 col-lg-3 my-2 my-lg-0">
                 <div class="list-group ">
                     <h4>Поддержка</h4>
                     <a class="mb-2 px-0" href="{{ route('support') }}" >Техническая поддержка</a>
@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="col-3">
+            <div class="col-12 col-md-6 col-lg-3 my-2 my-lg-0">
                 <div class="list-group">
                     <h4>Связь с администрацией</h4>
                     <a href="{{ route('support.create') }}" class="">Форма связи</a>

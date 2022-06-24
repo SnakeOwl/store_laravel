@@ -8,27 +8,26 @@
 <div class="container-fluid basket">
     <h1>Корзина</h1>
     @if (isset($order))
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Изображение</th>
-                <th>Название</th>
-                <th>Количество</th>
-                <th>Цена (за шт.)</th>
-                <th>Стоимость</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="overflow-auto mb-3">
 
-        @foreach($order->items as $item)
-            <tr>
-                <td><img src="{{ Storage::url($item->short_image) }}" width="200" alt="Изображение"></td>
-                <td><span class="basket-item-name">{{$item->name}}</span></td>
-                <td>
-                    <div class="d-flex pe-5">
-                        <div class="">{{$item->pivot->amount}}</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Изображение</th>
+                    <th>Название</th>
+                    <th>Количество</th>
+                    <th>Цена (за шт.)</th>
+                    <th>Стоимость</th>
+                </tr>
+            </thead>
+            <tbody>
 
-                        <div class="ms-auto">
+                @foreach($order->items as $item)
+                <tr>
+                    <td><img src="{{ Storage::url($item->short_image) }}" width="200" alt="Изображение"></td>
+                    <td><span class="basket-item-name">{{$item->name}}</span></td>
+                    <td>
+                        <div class="d-flex justify-content-between">
                             <form class="d-inline" action="{{ route('remove_from_basket', $item->id) }}" method="post">
                                 @csrf
                                 <button type="submit" class="btn-remove w-auto">
@@ -38,6 +37,7 @@
                                     </svg>
                                 </button>
                             </form>
+                            <span>{{$item->pivot->amount}}</span>
 
                             <form class="d-inline" action="{{ route('add_to_basket', $item->id) }}" method="post">
                                 @csrf
@@ -46,28 +46,34 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
                                         <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
                                     </svg>
-                            </button>
+                                </button>
                             </form>
                         </div>
-                    </div>
+                    </td>
+                    <td class="text-end"><span>{{$item->price}}</span></td>
+                    <td class="text-end"><span>{{ $item->get_price_for_amount() }}</span></td>
+                    <td>
+                    </td>
+                    <td>
 
-                </td>
-                <td><span class="basket-item-price">{{$item->price}}</span></td>
-                <td><span class="basket-item-price">{{ $item->get_price_for_amount() }}</span></td>
-                <td>
-                </td>
-                <td>
+                    </td>
+                </tr>
+                @endforeach
 
-                </td>
-            </tr>
-        @endforeach
-        <tr>
-            <td colspan="4">Общая стоимость</td>
-            <td> {{ $order->get_full_price() }} </td>
-        </tr>
-        </tbody>
-    </table>
-    <a class="bttn green" href="{{ route('basket-order') }}">Оформить заказ</a>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12 position-relative text-success">
+            <span >Общая стоимость</span>
+            <span class="position-absolute top-0 end-0 me-5">
+                {{ $order->get_full_price() }}
+            </span>
+        </div>
+    </div>
+
+    <a class="bttn green d-block d-md-inline text-center" href="{{ route('basket-order') }}">Оформить заказ</a>
     @endif
 </div>
 @endsection

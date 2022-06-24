@@ -9,6 +9,8 @@
 
 
 <h2>Пользователи</h2>
+<div class="overflow-scroll">
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -51,5 +53,6 @@
     @endforeach
     </tbody>
 </table>
+</div>
 
 @endsection

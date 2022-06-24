@@ -1,5 +1,6 @@
+@if ( count($storages) > 0 )
 <div class="container">
-    @if ( count($storages) > 0 )
+
     @foreach ($storages as $storage)
     <div class="card mb-3">
         <div class="card-header">
@@ -16,8 +17,6 @@
             </p>
         </div>
     </div>
-
-
     @endforeach
-    @endif
 </div>
+@endif

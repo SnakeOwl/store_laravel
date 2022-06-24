@@ -10,12 +10,12 @@
             <form class="col-12" action="{{ route('support.store') }}" method="post">
                 @csrf
                 <div class="row mb-3">
-                    <div class="col-6">
+                    <div class="col-12 col-md-6 mb-3">
                         <label for="name">Введите имя:</label>
                         <input class="form-control" type="text" id="name" name="name" minlength="2" maxlength="255" placeholder="Алексей Иванович" required>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <label for="email">Введите ваш email:</label>
                         <input class="form-control" type="text" id="email" name="email" minlength="5" maxlength="255" placeholder="email.gmail.com" required>
                     </div>

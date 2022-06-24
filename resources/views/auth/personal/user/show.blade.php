@@ -5,11 +5,12 @@
     <section class="mb-4">
         <h3>Персональные данные пользователя {{ $user->name }} (id: {{$user->id}})</h3>
         <div class="row mb-3">
-            <div class="col-3">
+            <div class="col-12 col-md-6 col-xxl-3 mb-3">
                 <label class="form-label">email:</label>
                 <input type="text" class="form-control" value="{{ $user->email }}" disabled>
             </div>
-            <div class="col-3">
+
+            <div class="col-12 col-md-6 col-xxl-3">
                 <label class="form-label">Телефон:</label>
                 <input type="text" class="form-control" value="{{ $user->phone }}" disabled>
             </div>
@@ -26,6 +27,8 @@
     <section>
         <h3>Заказы:</h3>
         <h2>Текущие заказы:</h2>
+        <div class="overflow-auto">
+
         <table class="table">
             <thead>
                 <tr>
@@ -60,8 +63,10 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
         <p>
             <a href="{{ route('personal_orders') }}">Посмотреть все заказы</a>
         </p>
     </section>
+
 @endsection
