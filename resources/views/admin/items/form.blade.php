@@ -66,7 +66,7 @@
     <div class="row mb-3">
         <div class="col-3">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="new" value="1" @if(isset($item) && $item->new == 1) checked @endif name="new">
+                <input class="form-check-input" type="checkbox" role="switch" id="new" value="1" @if(isset($item) && $item->new != 1) @else checked @endif name="new">
                 <label class="form-check-label" for="new">Новинка</label>
             </div>
 

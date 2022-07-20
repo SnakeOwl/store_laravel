@@ -42,7 +42,7 @@
             <div class="row mb-3">
                 <div class="col-3">
                     <label class="form-label">Сумма для оплаты заказа:</label>
-                    <input type="text" class="form-control" value="{{ $order->price }}" disabled>
+                    <input type="text" class="form-control" value="{{ $order->cost }}" disabled>
                 </div>
                 <div class="col-3">
                     <label class="form-label">Способ оплаты:</label>
@@ -92,7 +92,7 @@
                             </a>
                         </td>
                         <td>{{$item->pivot->amount}}</td>
-                        <td>{{$item->get_price_for_amount()}}</td>
+                        <td>{{$item->get_cost_for_amount()}}</td>
                     </tr>
                     @endforeach
 
@@ -101,7 +101,29 @@
         </div>
 
         <!-- additional options -->
+
         <div class="row mb-3">
+            <!-- couriers -->
+            @isset($couriers)
+            <div class="col-4">
+
+                <h4>Закрепление курьера</h4>
+                <form action="{{route('set-courier', $order->id)}}" method="post">
+                    @csrf
+                    <select class="form-select mb-3" name="courier_id" id="courier">
+                        @foreach($couriers as $courier)
+                            <option value=" {{ $courier->id }} ">{{ $courier->name }} (#{{$courier->id}})</option>
+
+                        @endforeach
+                    </select>
+                    <p class="text-secondary"><span class="text-danger">Внимание!</span> Закрепление дополнительного курьера не перекроет закрепленный заказ у первого курьера.</p>
+                    <button class="bttn blue">Закрепить курьера</button>
+                </form>
+            </div>
+            @endisset
+
+
+            <!-- status -->
             <div class="col-4">
                 <h4>Изменение статуса заказа</h4>
                 <form action="{{route('change-status', $order->id)}}  " method="post">
@@ -116,6 +138,9 @@
                 </form>
             </div>
         </div>
+
+
+        <!-- order-paid -->
         <div class="row">
             <form class="d-inline" action="{{route('order-paid', $order->id)}}" method="post">
                 @csrf

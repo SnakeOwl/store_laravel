@@ -15,19 +15,21 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->boolean('showed_in_main_slider')->index()->default(0);
-            $table->boolean('new')->index();
-            $table->boolean('hit')->index();
             $table->string('name')->index()->unique();
             $table->string('alias')->index()->unique();
             $table->decimal('price', 10, 2)->index();
-            $table->text('description')->nullable();
+            $table->text('description');
             $table->string('short_image')->nullable();
-            $table->float('current_reting', 1, 1)->nullable();
-            $table->unsignedSmallInteger('amount')->default(0);
-            $table->unsignedTinyInteger('discount')->nullable();
+            $table->float('current_reting', 1, 1)->default(0);
+            $table->unsignedSmallInteger('amount')->default(1);
+            $table->unsignedTinyInteger('discount')->default(0)->index();
+            $table->boolean('new')->index()->default(1);
+            $table->boolean('hit')->index()->default(0);
 
             $table->foreignId('category_id')->constrained('categories');
+
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

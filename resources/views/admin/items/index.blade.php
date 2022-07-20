@@ -15,7 +15,6 @@
     <thead>
         <th>#</th>
         <th>Название</th>
-        <th>Изображение</th>
         <th>Цена</th>
         <th>Количество</th>
     </thead>
@@ -25,7 +24,6 @@
         <tr>
             <td>{{ $el->id }}</td>
             <td>{{ $el->name }}</td>
-            <td><img width="200" src="{{ Storage::url($el->short_image) }}"></td>
             <td>{{ $el->price }}</td>
 
             <td>{{ $el->amount }}</td>

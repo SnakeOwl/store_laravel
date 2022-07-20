@@ -28,7 +28,7 @@
                         <td>{{$order->payment_method}}</td>
                         <td>{{$order->delivery_method}}</td>
                         <td>{{$order->address}}</td>
-                        <td>{{$order->price}}</td>
+                        <td>{{$order->cost}}</td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -191,8 +191,8 @@ class ItemController extends Controller
 
     public function destroy($id)
     {
-        Galery::where('item_id', $id)->delete();
-        Parameter::where('item_id', $id)->delete();
+        // Galery::where('item_id', $id)->delete();
+        // Parameter::where('item_id', $id)->delete();
         Item::findOrFail($id)->delete();
 
         return redirect()->route('items.index')->with('message', 'Запись удалена');

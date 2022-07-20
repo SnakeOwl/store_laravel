@@ -15,11 +15,21 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'Nikolay',
-            'email' => 'kolyania1@gmail.com',
-            'password' => bcrypt('administrator'),
-            'rights' => '10'
-        ]);
+        DB::table('users')->insert(
+            [
+                [
+                    'name' => 'administrator',
+                    'email' => 'administrator@gmail.com',
+                    'password' => bcrypt('administrator'),
+                    'rights' => '10'
+                ],
+                [
+                    'name' => 'courier1',
+                    'login' => 'courier1@gmail.com',
+                    'password' => bcrypt('courier1'),
+                    'rights' => '3'
+                ]
+            ]
+        );
     }
 }

@@ -4,17 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use App\Models\Order;
 use App\Models\User;
 use App\Models\Storage;
 
+use App\Http\Requests\CreateOrderRequest;
+
 
 class OrderController extends Controller
 {
+    public function set_courier(Request $request, Order $order)
+    {
+        $order->users()->attach($request->courier_id);
+        session()->flash('info', 'Курьер назначен');
+
+        return redirect()->back();
+    }
+
     public function change_status(Request $request, Order $order)
     {
         $order->update(['status' => $request['status']]);
-
         session()->flash('info', 'Статус изменен');
 
         return redirect()->back();
@@ -63,24 +73,23 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateOrderRequest $request)
     {
         $order_id = session('order_id');
+
         if (is_null($order_id))
-        {
             return redirect()->route('catalog');
-        }
 
         $order = Order::find($order_id);
+        $order->update($request->all());
 
-        $order->save_order( $request->input('payment_method', null),
-                            $request->input('delivery_method', null),
-                            $request->input('address', null),
-                            $request->input('post_index', null),
-                            $request->input('phone', null),
-                            $request->input('name', null),
-                            $request->input('storage_id', null)
-                        );
+        $order->save_order(); // тут расчитывается стоимость!!!
+
+        if (Auth::check())
+        {
+            $user = User::find(Auth::id());
+            $user->orders()->attach($order);
+        }
 
         session()->flash('info', 'Ваш заказ принят.');
 

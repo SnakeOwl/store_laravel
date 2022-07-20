@@ -11,7 +11,7 @@
     <div class="row w-100 justify-content-around ">
     <!-- Сами товары -->
     @foreach($items as $item)
-        <div class="col-12 col-md-6 col-lg-4 me-xl-1 col-xxl-3 mb-3 p-1 card">
+        <div class="col-12 col-md-6 col-lg-4 me-xl-1 col-xxl-3 mb-3 p-1  card">
             <div class="img-wrapper">
                 <a href={{ route('catalog-item',[
                 'category_alias' => $item->category->alias,
@@ -28,7 +28,7 @@
                         ] ) }}>
                         {{$item->name}}</a>
                 </h5>
-                <p class="text">{{$item->get_description()}}</p>
+                <p class="text">{!! $item->get_description() !!}</p>
                 <div class="d-flex mt-4">
                     <span class="">Цена:</span>
                     <span class="cart-price ms-auto">{{$item->price}}</span>

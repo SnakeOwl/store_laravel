@@ -12,7 +12,7 @@
         <h1 class="h3 mb-3 fw-normal">Пожалуйста войдите</h1>
 
         <!-- email -->
-        <div class="form-floating">
+        <div class="form-floating mb-3">
             <input type="email" :value="old('email')" name="email" class="form-control" id="email" placeholder="name@google.com" required autofocus>
             <label for="email">Email:</label>
         </div>
@@ -31,8 +31,13 @@
         </div>
 
         <input class="bttn blue w-100 mb-3" type="submit" value="Войти">
-        <a href="">Напомнить пароль</a>
-
     </form>
+    <p class="text-secondary text-start">
+        Админ: administrator@gmail.com | administrator
+        <br> <br>
+        Курьер: courier1@gmail.com | courier1
+    </p>
+
 </div>
+
 @endsection

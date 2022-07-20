@@ -27,6 +27,8 @@ Route::group([
             [OrderController::class, 'paid'])->name('order-paid');
         Route::post('orders/{order}/change-status',
             [OrderController::class, 'change_status'])->name('change-status');
+        Route::post('orders/{order}/set-courier',
+            [OrderController::class, 'set_courier'])->name('set-courier');
 
         Route::resource('contacts', ContactController::class)->only(['index', 'edit', 'update']);
         Route::resource('items', ItemController::class);
@@ -55,20 +57,20 @@ Route::group([
 
 // ========== BASKET ==========
 Route::group(['prefix' => 'basket'], function(){
-    Route::post('/add_item/{id}', [BasketController::class, "add_item"])->name('add_to_basket');
+    Route::post('/add_item/{item}', [BasketController::class, "add_item"])->name('add_to_basket');
 
     Route::group(['middleware' => 'basket_not_empty'], function (){
 
         Route::get('/', [BasketController::class, "index"])->name('basket');
         Route::get('/order', [OrderController::class, "create"])->name('basket-order');
-        Route::post('/order/{id}/delete_item', [BasketController::class, "remove_item"])->name('remove_from_basket');
+        Route::post('/order/{item}/delete_item', [BasketController::class, "remove_item"])->name('remove_from_basket');
         Route::post('/order', [OrderController::class, "store"])->name('basket-confirm');
     });
 });
 
+
+
 Route::resource('support', ContactController::class)->only('create', 'store');
-
-
 
 
 // ========== CATALOG ==========

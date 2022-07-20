@@ -64,6 +64,9 @@ ul.list-style-inside {
   list-style: inside;
 }
 
+.catalog .card {
+  max-height: 600px;
+}
 .catalog .card .img-wrapper {
   width: auto;
   height: 300px;

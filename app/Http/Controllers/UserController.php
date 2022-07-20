@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $active_orders = $user->orders()->active()->where('date_delivered', null)->get();
+        $active_orders = $user->orders()->active()->whereNull('date_delivered')->get();
         return view( 'auth.personal.user.show', compact('user', 'active_orders') );
     }
 

@@ -15,12 +15,12 @@ class User extends Authenticatable
     const RIGHTS = [
         'admin' => 10,
         'editor' => 5,
-        'courier' => 2
+        'courier' => 3
     ];
 
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->belongsToMany(Order::class);
     }
 
     public function scopeCouriers($query)
@@ -30,17 +30,17 @@ class User extends Authenticatable
 
     public function is_admin()
     {
-        return $this->rights === 10;
+        return $this->rights === User::RIGHTS['admin'];
     }
 
     public function is_editor()
     {
-        return ( $this->is_admin() )? true : $this->rights === 5;
+        return ( $this->is_admin() )? true : $this->rights === User::RIGHTS['admin'];
     }
 
     public function is_courier()
     {
-        return ( $this->is_admin() )? true : $this->rights === 2;
+        return ( $this->is_admin() )? true : $this->rights === User::RIGHTS['admin'];
     }
 
     /**

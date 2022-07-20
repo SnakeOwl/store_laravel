@@ -11,7 +11,6 @@ class Item extends Model
     use SoftDeletes;
     use HasFactory;
 
-    public $timestamps = false;
 
     protected $fillable = [
         'name',
@@ -40,7 +39,7 @@ class Item extends Model
         return ($this->amount > 0) && (! $this->trashed()) ;
     }
 
-    public function get_price_for_amount()
+    public function get_cost_for_amount()
     {
         if (!is_null ($this->pivot))
         {
@@ -64,11 +63,6 @@ class Item extends Model
     public function images()
     {
         return $this->hasMany(Galery::class);
-    }
-
-    public function rating()
-    {
-        return $this->hasMany(Rating::class);
     }
 
     public function comments()

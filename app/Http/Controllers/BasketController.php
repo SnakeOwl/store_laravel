@@ -6,15 +6,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\User;
+
 use Illuminate\Support\Facades\Auth;
 
 class BasketController extends Controller
 {
     //ajax-method not yet
-    public function add_item(Request $request, $id)
+    public function add_item(Request $request, Item $item)
     {
-        $item = Item::findOrFail($id);
-
         $order_id = session('order_id');
 
         if ( is_null($order_id) )
@@ -27,21 +27,23 @@ class BasketController extends Controller
             $order = Order::find($order_id);
         }
 
-        if($order->items->contains($id))
+        if($order->items->contains($item))
         {
-            $pivot_row = $order->items()->where('item_id', $id)->first()->pivot;
-            $pivot_row->amount++;
-            $pivot_row->update();
+            $pivot_row = $order->items()->where('item_id', $item->id)->first()->pivot;
+            if ($item->amount > $pivot_row->amount)
+            {
+                $pivot_row->amount++;
+                $pivot_row->update();
+            }
+            else
+            {
+                session()->flash('info', 'Больше нельзя добавить товар в корзину из-за отсутствия товара.');
+                return redirect()->route('basket');
+            }
         }
         else
         {
-            $order->items()->attach($id);
-        }
-
-        if (Auth::check())
-        {
-            $order->user_id = Auth::id();
-            $order->save();
+            $order->items()->attach($item);
         }
 
         session()->flash('info', 'Товар добавлен.');
@@ -49,19 +51,19 @@ class BasketController extends Controller
         return redirect()->route('basket');
     }
 
-    public function remove_item($id)
+    public function remove_item(Item $item)
     {
         $order_id = session('order_id');
         if ( !is_null($order_id) )
         {
             $order = Order::find($order_id);
 
-            if($order->items->contains($id))
+            if($order->items->contains($item))
             {
-                $pivot_row = $order->items()->where('item_id', $id)->first()->pivot;
+                $pivot_row = $order->items()->where('item_id', $item->id)->first()->pivot;
                 if($pivot_row->amount < 2)
                 {
-                    $order->items()->detach($id);
+                    $order->items()->detach($item);
                 }
                 else
                 {
@@ -81,9 +83,9 @@ class BasketController extends Controller
         $order_id = session('order_id');
         if ($order_id == false)
         {
-            return view('catalog.basket', [
-                'message' => "Ваша корзина пуста"
-            ]);
+            session()->flash('info', 'Ваша корзина пуста');
+
+            return view('catalog.basket');
         }
         else
         {

@@ -18,7 +18,6 @@ class CreateCategoriesTable extends Migration
             $table->string("name")->unique();
             $table->string("alias")->unique();
             $table->bigInteger("id_parent")->nullable();
-            $table->timestamps();
         });
     }
 

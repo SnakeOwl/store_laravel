@@ -6,7 +6,8 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-6">
+            <!-- slider -->
+            <div class="col-12 col-xl-6 mb-2">
                 <div class="w-auto detail-img-wrapper">
                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
                         <div class="carousel-inner">
@@ -34,23 +35,16 @@
 
                 </div>
             </div>
-            <div class="col-4">
+
+            <!-- description -->
+            <div class="col-12 col-xl-6">
                 <h1>{{$item->name}}</h1>
-                <p>
+                <p class="text-justify">
                     {!! $item->get_description() !!}
                 </p>
                 <p>Цена: {{$item->price}}</p>
             </div>
-            <div class="col-2">
-                <div class="text-end">
-                    <form class="d-inline ms-auto" action="{{ route('add_to_basket', $item->id) }}" method="post">
-                        @csrf
-                        <input type="hidden" name="amount" value="1">
 
-                        <button type="submit" class="bttn red">В корзину</button>
-                    </form>
-                </div>
-            </div>
         </div>
 
         <div class="row mt-5">

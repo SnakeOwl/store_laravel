@@ -10,11 +10,20 @@ class Order extends Model
     use HasFactory;
     public $fillable = [
         'payment_status',
-        'status'
+        'status',
+        'payment_method',
+        'delivery_method',
+        'address',
+        'post_index',
+        'phone',
+        'name',
+        'storage_id',
     ];
 
-    public $timestamps = false;
-    protected $table = "orders";
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 
     public function scopeActive($query)
     {
@@ -26,41 +35,27 @@ class Order extends Model
         return $this->belongsToMany(Item::class)->withPivot('amount')->withTimestamps();
     }
 
-    public function get_full_price()
+    // return full cost of the current order
+    public function get_full_cost()
     {
         $sum = 0;
 
         foreach ($this->items as $item)
         {
-            $sum += $item->get_price_for_amount();
+            $sum += $item->get_cost_for_amount();
         }
 
         return $sum;
     }
 
-    public function save_order( $payment_method,
-                                $delivery_method,
-                                $address,
-                                $post_index,
-                                $phone,
-                                $name,
-                                $storage_id)
+    public function save_order()
     {
-        date_default_timezone_set("Europe/Moscow");
-
-        $this->payment_method   = $payment_method;
-        $this->delivery_method  = $delivery_method;
-        $this->address          = $address;
-        $this->post_index       = $post_index;
-        $this->phone            = $phone;
-        $this->name             = $name;
-        $this->price            = $this->get_full_price();
+        $this->cost            = $this->get_full_cost();
         $this->basket_status    = 1;
-        $this->date_created     = date('Y-m-d H:i:s'); 	//Europe/Minsk
-        $this->storage_id       = $storage_id;
         $this->save();
 
         session()->forget('order_id');
+
         return true;
     }
 
@@ -76,6 +71,6 @@ class Order extends Model
         'delivery_method' => 'Способ доставки не выбран',
         'address' => 'Адрес не задан',
         'phone' => 'Телефон не задан',
-        'price' => '0'
+        'cost' => '0'
     ];
 }

@@ -8,11 +8,14 @@
     <form action="{{ route('basket-confirm') }}" method="post">
         @csrf
 
+        <!-- name -->
         <div class="form-floating mb-3">
             <input class="form-control" type="text" id="name" name="name" maxlength="255" placeholder="">
             <label for="name">ФИО</label>
         </div>
 
+
+        <!-- delivery_method -->
         <div class="form-floating mb-3">
             <select class="form-select" name="delivery_method" id="delivery_method">
                 <option selected value="Доставка курьером">Доставка курьером</option>
@@ -22,6 +25,9 @@
             <label for="delivery_method">Способ Доставки</label>
         </div>
 
+
+        <!-- post_index -->
+        <!-- address -->
         <div id="payment-type-1">
             <!-- данные для курьера и почты -->
 
@@ -39,6 +45,8 @@
             </div>
         </div>
 
+
+        <!-- storage_id -->
         <div class="d-none" id="payment-type-3">
             @isset($storages)
                 <div class="container">
@@ -68,15 +76,17 @@
             @else
                 <p>В нашем магазине нету точек самовывоза, пожалуйста выберите друго способ доставки.</p>
             @endisset
-
-
         </div>
 
+
+        <!-- phone -->
         <div class="form-floating mb-3">
             <input class="form-control" type="tel" id="phone" name="phone" maxlength="20" placeholder="29 123-4567" required>
             <label for="phone">Телефон:</label>
         </div>
 
+
+        <!-- payment_method -->
         <div class="form-floating mb-3">
             <select class="form-select" name="payment_method" id="payment_method">
                 <option selected value="Оплата картой">Оплата картой</option>
@@ -86,9 +96,10 @@
             <label for="payment_method">Способ оплаты</label>
         </div>
 
+        <!-- cost -->
         <div class="form-floating mb-3">
-            <input class="form-control" type="text" id="cost" value="{{ $order->get_full_price() }}" disabled>
-            <label for="cost">Суммка оплаты</label>
+            <input class="form-control" type="text" id="cost" value="{{ $order->get_full_cost() }}" disabled>
+            <label for="cost">Сумма для оплаты</label>
         </div>
 
 

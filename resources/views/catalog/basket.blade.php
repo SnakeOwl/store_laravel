@@ -51,7 +51,7 @@
                         </div>
                     </td>
                     <td class="text-end"><span>{{$item->price}}</span></td>
-                    <td class="text-end"><span>{{ $item->get_price_for_amount() }}</span></td>
+                    <td class="text-end"><span>{{ $item->get_cost_for_amount() }}</span></td>
                     <td>
                     </td>
                     <td>
@@ -68,7 +68,7 @@
         <div class="col-12 position-relative text-success">
             <span >Общая стоимость</span>
             <span class="position-absolute top-0 end-0 me-5">
-                {{ $order->get_full_price() }}
+                {{ $order->get_full_cost() }}
             </span>
         </div>
     </div>
