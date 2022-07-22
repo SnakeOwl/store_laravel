@@ -72,7 +72,7 @@ class CatalogController extends Controller
     */
     public function show($category_alias, $item_alias)
     {
-        $item = Item::where('alias', $item_alias)->firstOrFail();
+        $item = Item::where('alias', $item_alias)->withTrashed()->firstOrFail();
         return view('catalog.show', compact('item'));
     }
 }

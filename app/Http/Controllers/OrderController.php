@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use App\Models\Order;
 use App\Models\User;
 use App\Models\Storage;
 
-use App\Http\Requests\CreateOrderRequest;
 
 
 class OrderController extends Controller
@@ -55,46 +53,7 @@ class OrderController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $storages = Storage::all();
-        $order = Order::find( session('order_id') );
-        return view('orders.form-order' , compact('storages', 'order') );
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CreateOrderRequest $request)
-    {
-        $order_id = session('order_id');
-
-        if (is_null($order_id))
-            return redirect()->route('catalog');
-
-        $order = Order::find($order_id);
-        $order->update($request->all());
-
-        $order->save_order(); // тут расчитывается стоимость!!!
-
-        if (Auth::check())
-        {
-            $user = User::find(Auth::id());
-            $user->orders()->attach($order);
-        }
-
-        session()->flash('info', 'Ваш заказ принят.');
-
-        return redirect()->route("catalog");
-    }
 
     /**
      * Display the specified resource.

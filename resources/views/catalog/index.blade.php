@@ -49,7 +49,7 @@
                             @csrf
                             <input type="hidden" name="amount" value="1">
 
-                            <button class="bttn red" type="submit">В корзину</button>
+                            <button class="bttn red" type="submit">@lang('main.to basket')</button>
                         </form>
                     @else
                         <button class="bttn blue d-inline ms-auto" disabled>Нет в наличии</button>

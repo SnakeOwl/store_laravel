@@ -18,8 +18,6 @@
     @include('layouts.include.messages')
     @include('layouts.include.errors')
 
-
-
     <div class="container-fluid p-0">
 
             @yield('content')

@@ -5,9 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
-use App\View\Components\Slider_v1;
-use App\View\Components\Mini_catalog_v1;
 use App\View\Components\Storages_list_v1;
+use App\Observers\ItemObserver;
+use App\Models\Item;
 
 
 
@@ -30,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Item::observe(ItemObserver::class);
+
         Blade::directive('headerRouteActive', function ($route ){
             return "<?php echo Route::currentRouteNamed($route) ? 'link-secondary' :  'link-dark' ?>";
         });

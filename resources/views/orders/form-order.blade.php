@@ -14,6 +14,12 @@
             <label for="name">ФИО</label>
         </div>
 
+        <!-- email -->
+        <div class="form-floating mb-3">
+            <input class="form-control" type="text" id="email" name="email" maxlength="255" placeholder="">
+            <label for="email">email</label>
+        </div>
+
 
         <!-- delivery_method -->
         <div class="form-floating mb-3">

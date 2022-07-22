@@ -10,6 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\SubscriptionController;
 
 require __DIR__.'/auth.php';
 
@@ -17,9 +18,9 @@ require __DIR__.'/auth.php';
 
 // ========== ADMIN ==========
 Route::group([
-    'middleware' => 'auth',
     'prefix' => 'admin',
-    'middleware' => 'is_editor'
+    'middleware' => 'is_editor',
+    'middleware' => 'auth',
     ], function(){
 
         Route::resource('orders', OrderController::class)->except('destroy');
@@ -31,14 +32,14 @@ Route::group([
             [OrderController::class, 'set_courier'])->name('set-courier');
 
         Route::resource('contacts', ContactController::class)->only(['index', 'edit', 'update']);
-        Route::resource('items', ItemController::class);
+        Route::resource('items', ItemController::class)->except('show');
         Route::resource('categories', CategoryController::class);
         Route::resource('couriers', CourierController::class);
         Route::resource('storages', StorageController::class)->except('show');
         Route::resource('users', UserController::class)->only(['index', 'destroy']);
 });
 
-
+Route::resource('subscription', SubscriptionController::class)->only('store');
 
 
 // ========== USERS ==========
@@ -62,9 +63,9 @@ Route::group(['prefix' => 'basket'], function(){
     Route::group(['middleware' => 'basket_not_empty'], function (){
 
         Route::get('/', [BasketController::class, "index"])->name('basket');
-        Route::get('/order', [OrderController::class, "create"])->name('basket-order');
+        Route::get('/order', [BasketController::class, "create_order"])->name('basket-order');
+        Route::post('/order', [BasketController::class, "store_order"])->name('basket-confirm');
         Route::post('/order/{item}/delete_item', [BasketController::class, "remove_item"])->name('remove_from_basket');
-        Route::post('/order', [OrderController::class, "store"])->name('basket-confirm');
     });
 });
 

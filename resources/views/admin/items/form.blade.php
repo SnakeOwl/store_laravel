@@ -59,7 +59,7 @@
 
         <div class="col-3">
             <label for="amount">Количество:</label>
-            <input class="form-control" min="1" max="65535" value="{{ old('amount', isset($item)? $item->amount: 1) }}" type="number" name="amount" id="amount" required>
+            <input class="form-control" min="0" max="65535" value="{{ old('amount', isset($item)? $item->amount: 1) }}" type="number" name="amount" id="amount" required>
         </div>
     </div>
 

@@ -20,6 +20,7 @@ class CheckUsersRights
         $user = Auth::user();
         if(! $user->is_editor())
             return redirect()->route('home');
+            
         return $next($request);
     }
 }

@@ -25,7 +25,8 @@ class BasketIsNotEmpty
                 return $next($request);
         }
 
-        session()->flash('warning', 'Ваша корзина пуста');
+        session()->flash('info', 'Ваша корзина пуста');
+        
         return redirect()->route('catalog');
     }
 }

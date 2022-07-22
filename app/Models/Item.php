@@ -36,7 +36,7 @@ class Item extends Model
 
     public function is_available()
     {
-        return ($this->amount > 0) && (! $this->trashed()) ;
+        return ($this->amount > 0) && !$this->trashed();
     }
 
     public function get_cost_for_amount()

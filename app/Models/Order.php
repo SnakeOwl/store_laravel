@@ -18,6 +18,7 @@ class Order extends Model
         'phone',
         'name',
         'storage_id',
+        'basket_status',
     ];
 
     public function users()
@@ -48,11 +49,11 @@ class Order extends Model
         return $sum;
     }
 
-    public function save_order()
+    public function save_order($params)
     {
-        $this->cost            = $this->get_full_cost();
-        $this->basket_status    = 1;
-        $this->save();
+        $params['cost'] = $this->get_full_cost();
+        $params['basket_status'] = 1;
+        $this->update($params);
 
         session()->forget('order_id');
 

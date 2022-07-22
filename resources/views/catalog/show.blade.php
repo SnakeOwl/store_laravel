@@ -3,7 +3,7 @@
 @section('title'){{$item->name}}@endsection
 
 @section('content')
-    <div class="container">
+    <div class="container position-relative pb-5">
         <div class="row">
 
             <!-- slider -->
@@ -44,9 +44,9 @@
                 </p>
                 <p>Цена: {{$item->price}}</p>
             </div>
-
         </div>
 
+        <!-- properties -->
         <div class="row mt-5">
             <div class="col-12">
                 <h3>Характеристики</h3>
@@ -61,13 +61,26 @@
             </div>
         </div>
 
-        <div class="text-end">
+        <!-- "to basket" button -->
+        <div class="position-absolute bottom-0 end-0 text-center">
+            @if ($item->is_available())
             <form class="d-inline ms-auto" action="{{ route('add_to_basket', $item->id) }}" method="post">
                 @csrf
                 <input type="hidden" name="amount" value="1">
 
                 <button type="submit" class="bttn red">В корзину</button>
             </form>
+            @else
+            <span>Товара нет в наличии</span>
+            <br>
+            <span>Сообщить вам о поступлении товара? </span>
+            <form class="d-inline ms-auto" action="{{route('subscription.store')}}" method="post">
+                @csrf
+                <input type="hidden" name="item_id" value="{{$item->id}}">
+                <input class="form-control mb-2" type="email" name="email" id="email" placeholder="my_email@gmail.com" required>
+                <button class="bttn blue ms-auto">Подписаться</button>
+            </form>
+            @endif
         </div>
     </div>
 

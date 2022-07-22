@@ -31,6 +31,7 @@ class CreateOrderRequest extends FormRequest
             'storage_id' => 'nullable|numeric',
             'phone' => 'required|min:8|max:255',
             'name' => 'required|min:2|max:255',
+            'email' => 'required|email:rfc,dns'
         ];
     }
 }

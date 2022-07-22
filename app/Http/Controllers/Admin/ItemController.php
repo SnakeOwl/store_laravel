@@ -18,7 +18,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        return view('admin.items.index', [ 'items' => Item::all() ]);
+        return view('admin.items.index', [ 'items' => Item::withTrashed()->get() ]);
     }
 
     public function create()
@@ -83,11 +83,6 @@ class ItemController extends Controller
         session()->flash('info', 'Товар добавлен');
 
         return redirect()->route('items.index');
-    }
-
-    public function show(Item $id)
-    {
-        // ['item' => Item::findOrFail($id)]
     }
 
     public function edit(Item $item)

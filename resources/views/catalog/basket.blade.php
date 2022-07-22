@@ -52,11 +52,7 @@
                     </td>
                     <td class="text-end"><span>{{$item->price}}</span></td>
                     <td class="text-end"><span>{{ $item->get_cost_for_amount() }}</span></td>
-                    <td>
-                    </td>
-                    <td>
 
-                    </td>
                 </tr>
                 @endforeach
 
